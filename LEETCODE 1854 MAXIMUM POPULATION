@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+        int population[101] = {0};  
+        int offset = 1950;
+
+        for (const auto& log : logs) {
+            population[log[0] - offset]++;
+            population[log[1] - offset]--;
+        }
+
+        int maxPop = 0, maxYear = 0, currPop = 0;
+        for (int i = 0; i < 101; ++i) {
+            currPop += population[i];
+            if (currPop > maxPop) {
+                maxPop = currPop;
+                maxYear = i;
+            }
+        }
+        return maxYear + offset;
+    }
+};
